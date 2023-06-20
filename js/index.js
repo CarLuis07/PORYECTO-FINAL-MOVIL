@@ -90,6 +90,7 @@ function CategoriasActivasDelSistema() {
 
 //ir al carrito a ver los productos
 var irCarrito = document.getElementById("irCarrito");
+var precioTotal = 0;
 irCarrito.onclick = function () {
     categorias.innerHTML = "";
     var div1 = document.createElement("div");
@@ -107,7 +108,6 @@ irCarrito.onclick = function () {
 
 //creacion de cada prodcuto
     productosEnCarrito.forEach(p => {
-        console.log("holaa")
         var li = document.createElement("li");
         var img = document.createElement("img");
         var div4=document.createElement("div");
@@ -132,9 +132,31 @@ irCarrito.onclick = function () {
         img.src = p.imagen;
         h6.innerHTML = p.nombre;
         p1.innerHTML = p.descripcion;
-        p2.innerHTML = "Precio: L"+p.precio;
+        p2.innerHTML = "Precio: L" + p.precio;
+        precioTotal += parseFloat(p.precio);
         p3.innerHTML = "Cantidad:" + '<a class="btn btn-danger">-</a>' + ' ' + 1 + ' ' + '<a class="btn btn-success">+</a>';           
     });
-    
-    
+
+    var impuesto = 0;
+    var TotalPagar = 0;
+    var subtales = document.createElement("li");
+    var tiutlos = document.createElement("li");
+    var isv = document.createElement("li");
+    var total = document.createElement("li");
+    var btnComprar = document.createElement("button");
+    ul.append(tiutlos,subtales, isv, total,btnComprar);
+
+    tiutlos.setAttribute("style", "text-align: center");
+    subtales.setAttribute("style", "text-align: end");
+    isv.setAttribute("style", "text-align: end");
+    total.setAttribute("style", "text-align: end");
+    btnComprar.classList = "btn btn-primary my-2";
+
+    tiutlos.innerHTML = "<h4>TOTAL DE TU COMPRA</h4>";
+    subtales.innerHTML = "<h6>SubTotal: L."+precioTotal+"</h6>";
+    impuesto = precioTotal * .15;
+    TotalPagar = impuesto + precioTotal;
+    isv.innerHTML = "<h6>ISV: L."+impuesto+"</h6>";
+    total.innerHTML = "<H6>Total A Pagar: L."+TotalPagar+"</H6>";
+    btnComprar.innerHTML="Confirmar Compra"
 }
