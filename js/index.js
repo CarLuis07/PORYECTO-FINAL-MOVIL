@@ -160,3 +160,21 @@ irCarrito.onclick = function () {
     total.innerHTML = "<H6>Total A Pagar: L."+TotalPagar+"</H6>";
     btnComprar.innerHTML="Confirmar Compra"
 }
+
+function validarUsuario(frm, e) {
+    e.preventDefault();
+    var alertLgin = document.getElementById("alertLgin");
+    fetch(url +"login&username="+ frm["Inputusuario"].value + "&password=" + frm["InputContra"].value)
+        .then(r => r.json())
+    .then(data => {
+            if (data) {
+                document.getElementById("imgLogin").setAttribute("src","img/1234.png")
+                alertLgin.setAttribute("style", "display: none");
+                var ocultar = document.getElementById("ocultar")
+                ocultar.setAttribute("data-bs-dismiss", "modal"); 
+            } else {
+                alertLgin.setAttribute("style", "display: block");
+            }
+});
+    
+}
